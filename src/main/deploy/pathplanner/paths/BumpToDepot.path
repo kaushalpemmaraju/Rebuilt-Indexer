@@ -1,0 +1,65 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.5780656610470274,
+        "y": 6.2200088731144625
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.3155968845626465,
+        "y": 6.293855293183075
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.0464955357142856,
+        "y": 5.92733630952381
+      },
+      "prevControl": {
+        "x": 3.735090828426374,
+        "y": 5.82708742221351
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "DepotFrontFacing"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [
+    {
+      "fieldPosition": {
+        "x": 4.625,
+        "y": 4.04
+      },
+      "rotationOffset": 180.0,
+      "minWaypointRelativePos": 0.5973741794310719,
+      "maxWaypointRelativePos": 0.822757111597374,
+      "name": "Point Towards Hub"
+    }
+  ],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 1272.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.6,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Test Auton",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}
