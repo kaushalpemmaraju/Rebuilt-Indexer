@@ -22,9 +22,6 @@ public class IndexerSubsystem extends SubsystemBase {
 
   private static IndexerSubsystem m_instance;
 
-  public final Alert kIndexerVelocityOutOfBounds =
-      new Alert("OutOfBounds", "Indexer Velocity Requested Out of Bounds", AlertType.kWarning);
-
   public static IndexerSubsystem getInstance() {
     if (m_instance == null) {
       m_instance = new IndexerSubsystem();
@@ -59,20 +56,11 @@ public class IndexerSubsystem extends SubsystemBase {
   }
 
   public void setIndexerVelocity(AngularVelocity velocity) {
-    if (Math.abs(velocity.in(RadiansPerSecond)*60.0) > MotorUtil.kKrakenX60_MaxRPM) {
-      kIndexerVelocityOutOfBounds.set(true);
-    } else {
-      kIndexerVelocityOutOfBounds.set(false);
-      desiredVelocity = velocity;
-    }
+    desiredVelocity = velocity;
   }
 
   public void resetIndexerRotation() {
     io.setIndexerMotorRotation(Rotation2d.kZero);
-  }
-
-  public void disableIndexerMotor(boolean shouldDisable) {
-    io.disableIndexerMotor(shouldDisable);
   }
 
   public AngularVelocity getIndexerVelocity() {
@@ -80,11 +68,11 @@ public class IndexerSubsystem extends SubsystemBase {
   }
 
   public boolean isLeaderConnected() {
-    return inputsAutoLogged.indexerMotorLeaderConnected;
+    return io.isLeaderConnected();
   }
 
   public boolean isFollowerConnected() {
-    return inputsAutoLogged.indexerMotorFollowerConnected;
+    return io.isFollowerConnected();
   }
 
   public void log() {

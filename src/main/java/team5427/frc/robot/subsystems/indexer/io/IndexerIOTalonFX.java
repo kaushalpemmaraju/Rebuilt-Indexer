@@ -1,5 +1,6 @@
 package team5427.frc.robot.subsystems.indexer.io;
 
+import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 
@@ -9,6 +10,7 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularAcceleration;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -39,9 +41,9 @@ public IndexerIOTalonFX(){
     indexerMotorLeader = new SteelTalonFX(IndexerConstants.kIndexerMasterMotorCanId);
     indexerMotorFollower = new SteelTalonFX(IndexerConstants.kIndexerSlaveMotorCanId);
 
-    indexerMotorLeader.getTalonFX()
+    indexerMotorFollower.getTalonFX()
         .setControl(
-            new Follower(indexerMotorFollower.getTalonFX().getDeviceID(),
+            new Follower(indexerMotorLeader.getTalonFX().getDeviceID(),
             MotorAlignmentValue.Aligned));
 
 
@@ -65,11 +67,11 @@ public IndexerIOTalonFX(){
     }
 
 
-    public void updateInputs(IndexerIOInputsAutoLogged inputs){
+    public void updateInputs(IndexerIOInputs inputs){
         BaseStatusSignal.refreshAll(indexerMotorCurrent, indexerMotorAngularVelocity);
         inputs.indexerMotorAngularVelocity = indexerMotorAngularVelocity.getValue();
         inputs.indexerMotorCurrent = indexerMotorCurrent.getValue();
-        inputs.indexerFlywheelLinearVelocity = MetersPerSecond.of(indexerMotorAngularVelocity.getValueAsDouble() / 39.37);
+        inputs.indexerFlywheelLinearVelocity = MetersPerSecond.of(Units.inchesToMeters(indexerMotorAngularVelocity.getValueAsDouble() / 2.0 * Math.PI));
 
         inputs.indexerMotorLeaderConnected = indexerMotorLeader.getTalonFX().isConnected();
         inputs.indexerMotorFollowerConnected = indexerMotorFollower.getTalonFX().isConnected();
@@ -80,11 +82,14 @@ public IndexerIOTalonFX(){
         indexerMotorLeader.setSetpoint(velocity);
     }
 
-    public void disableIndexerMotor(boolean shouldDisable) {
-        if(shouldDisable){
-            indexerMotorLeader.getTalonFX().disable();
-            indexerMotorFollower.getTalonFX().disable();
-        }
+    @Override
+    public boolean isLeaderConnected(){
+        return indexerMotorLeaderConnected;
+    }
+
+     @Override
+    public boolean isFollowerConnected(){
+        return indexerMotorFollowerConnected;
     }
 
 }

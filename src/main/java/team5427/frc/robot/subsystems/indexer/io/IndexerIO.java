@@ -26,7 +26,8 @@ public interface IndexerIO {
     public LinearVelocity indexerFlywheelLinearVelocity = MetersPerSecond.of(0.0);
 
     public Current indexerMotorCurrent = Amps.of(0.0);
-\
+    public Voltage indexerMotorVoltage = Volts.of(0.0);
+
     public boolean indexerMotorLeaderConnected = false;
     public boolean indexerMotorFollowerConnected = false;
   }
@@ -38,5 +39,9 @@ public interface IndexerIO {
   public default void setIndexerMotorVelocity(AngularVelocity velocity) {}
 
   public default void disableIndexerMotor(boolean shouldDisable) {}
+
+  public abstract boolean isLeaderConnected();
+
+  public abstract boolean isFollowerConnected();
 
 }
