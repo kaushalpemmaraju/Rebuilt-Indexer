@@ -67,14 +67,6 @@ public class IndexerSubsystem extends SubsystemBase {
     return inputsAutoLogged.indexerMotorAngularVelocity;
   }
 
-  public boolean isLeaderConnected() {
-    return io.isLeaderConnected();
-  }
-
-  public boolean isFollowerConnected() {
-    return io.isFollowerConnected();
-  }
-
   public void log() {
     Logger.recordOutput("Indexer/DesiredAngularVelocity", desiredVelocity.in(RadiansPerSecond));
     Logger.recordOutput("Indexer/ActualAngularVelocity", inputsAutoLogged.indexerMotorAngularVelocity.in(RadiansPerSecond));
